@@ -1,22 +1,15 @@
 <template>
   <div class="wrapper">
-    <Form/>
+    <Refs/>
   </div>
 </template>
 
 <script>
-
-import Form from './components/Form'
+import Refs from './components/Refs'
 
 export default {
-  name: 'App',
-  data () {
-    return {
-      numbers: [1, 2, 3, 4, 5, 6]
-    }
-  },
   components: {
-    Form
+    Refs
   }
 }
 </script>
