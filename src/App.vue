@@ -1,35 +1,42 @@
 <template>
-  <input type="text" v-model="promo">
+  <input type="text" v-model.lazy="promo">
   <div v-if="hasSale">
-    <div class="base">base: {{price}}</div>
-    <div class="final">total: {{total}} -{{sale}}%</div>
+    <div class="base">base: {{ price }}</div>
+    <div class="final">total: {{ total }} -{{ sale }}%</div>
   </div>
-  <div class="final" v-else>total: {{total}}</div>
+  <div class="final" v-else>total: {{ total }}</div>
 </template>
 
 <script>
-function getSale (promo) {
+function getSale (promo, onComplete = Function) {
   const promos = { some: 10, final: 20 }
-  return Object.prototype.hasOwnProperty.call(promos, promo) ? promos[promo] : 0
+  setTimeout(function () {
+    onComplete(Object.prototype.hasOwnProperty.call(promos, promo) ? promos[promo] : 0)
+  }, 1000)
 }
+
 export default {
   name: 'App',
   data () {
     return {
+      sale: 0,
       promo: '',
       price: 1000
     }
   },
   computed: {
-    sale () {
-      return getSale(this.promo)
-    },
     hasSale () {
       return this.sale > 0
     },
     total () {
-      const sale = getSale(this.promo)
-      return this.price - (sale / 100 * this.price)
+      return this.sale > 0 ? this.price - (this.sale / 100 * this.price) : this.price
+    }
+  },
+  watch: {
+    promo () {
+      getSale(this.promo, (sale) => {
+        this.sale = sale
+      })
     }
   }
 }
