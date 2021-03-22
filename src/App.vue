@@ -1,45 +1,22 @@
 <template>
-  <input type="text" v-model.lazy="promo">
-  <div v-if="hasSale">
-    <div class="base">base: {{ price }}</div>
-    <div class="final">total: {{ total }} -{{ sale }}%</div>
+  <div class="wrapper">
+    <Form/>
   </div>
-  <div class="final" v-else>total: {{ total }}</div>
-  <button class="btn btn-danger" @click="promo = ''">x</button>
-  <button class="btn btn-primary" @click="promo = 'some'">For new clients</button>
 </template>
 
 <script>
-function getSale (promo, onComplete = Function) {
-  const promos = { some: 10, final: 20 }
-  setTimeout(function () {
-    onComplete(Object.prototype.hasOwnProperty.call(promos, promo) ? promos[promo] : 0)
-  }, 1000)
-}
+
+import Form from './components/Form'
 
 export default {
   name: 'App',
   data () {
     return {
-      sale: 0,
-      promo: '',
-      price: 1000
+      numbers: [1, 2, 3, 4, 5, 6]
     }
   },
-  computed: {
-    hasSale () {
-      return this.sale > 0
-    },
-    total () {
-      return this.sale > 0 ? this.price - (this.sale / 100 * this.price) : this.price
-    }
-  },
-  watch: {
-    promo () {
-      getSale(this.promo, (sale) => {
-        this.sale = sale
-      })
-    }
+  components: {
+    Form
   }
 }
 </script>
@@ -52,5 +29,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.wrapper {
+  margin: 0 auto;
+  padding: 15px;
+  max-width: 900px;
 }
 </style>
