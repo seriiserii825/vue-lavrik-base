@@ -5,6 +5,8 @@
     <div class="final">total: {{ total }} -{{ sale }}%</div>
   </div>
   <div class="final" v-else>total: {{ total }}</div>
+  <button class="btn btn-danger" @click="promo = ''">x</button>
+  <button class="btn btn-primary" @click="promo = 'some'">For new clients</button>
 </template>
 
 <script>
