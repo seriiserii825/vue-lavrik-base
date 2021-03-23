@@ -1,7 +1,7 @@
 <template>
   <div class="radio">
     <form>
-      <div class="content alert alert-info">
+      <div class="content alert alert-info" @scroll="handleScroll($event)">
         <p>This text no one reads. This text no one reads. This text no one reads.</p>
         <p>This text no one reads. This text no one reads. This text no one reads.</p>
         <p>This text no one reads. This text no one reads. This text no one reads.</p>
@@ -23,58 +23,83 @@
         <p>This text no one reads. This text no one reads. This text no one reads.</p>
         <p>This text no one reads. This text no one reads. This text no one reads.</p>
       </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="checkbox">
-          Agree all
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio">
-          Get spam
-        </label>
-      </div>
-      <div class="links">
+      <div class="controls" v-if="scrollEnd">
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" name="link" type="radio">
-            Email
+            <input class="form-check-input" type="checkbox" v-model="agree">
+            Agree all
           </label>
         </div>
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" name="link" type="radio">
-            Phone
+            <input class="form-check-input" type="checkbox" v-model="showSpam">
+            Get spam
           </label>
         </div>
+        <div class="links" v-if="showSpam">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" name="link" type="radio" value="email" v-model="link">
+              Email
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" name="link" type="radio" value="phone" v-model="link">
+              Phone
+            </label>
+          </div>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-primary" v-if="agree" @click="sendForm">
+          Send Data
+        </button>
       </div>
-      <hr>
-      <button class="btn btn-primary">
-        Send Data
-      </button>
     </form>
-    <div>
-      <table class="table table-bordered">
-        <tr>
-          <td>Agree all</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>Get spam</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>Spam type</td>
-          <td>email</td>
-        </tr>
-      </table>
-    </div>
+    <table class="table table-bordered" v-if="formReady && agree">
+      <tr>
+        <td>Agree all</td>
+        <td v-if="agree">Yes</td>
+        <td v-else>No</td>
+      </tr>
+      <tr>
+        <td>Get spam</td>
+        <td v-if="showSpam">Yes</td>
+        <td v-else>No</td>
+      </tr>
+      <tr>
+        <td>Spam type</td>
+        <td v-if="showSpam && link.length > 0">{{ link }}</td>
+        <td v-else>empty</td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      scrollEnd: false,
+      formReady: false,
+      showSpam: false,
+      agree: false,
+      link: 'email'
+    }
+  },
+  methods: {
+    handleScroll (event) {
+      const target = event.target
+      this.scrollEnd = target.clientHeight + target.scrollTop === target.scrollHeight
+    },
+    sendForm () {
+      this.formReady = true
+    }
+  },
+  created () {
+
+  }
+}
 </script>
 
 <style lang="scss">
@@ -96,6 +121,6 @@ form {
 }
 .table {
   margin-bottom: 8rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
 }
 </style>
