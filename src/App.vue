@@ -1,17 +1,16 @@
 <template>
   <div class="wrapper">
-    <FormProgress/>
+    <Todo/>
   </div>
 </template>
 
 <script>
-// import Radio from './components/Radio'
 
-import FormProgress from './components/FormProgress'
+import Todo from './components/todo/Todo'
 
 export default {
   components: {
-    FormProgress
+    Todo
   }
 }
 </script>
