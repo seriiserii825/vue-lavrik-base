@@ -1,16 +1,15 @@
 <template>
   <div class="wrapper">
-    <Todo/>
+    <Filter/>
   </div>
 </template>
 
 <script>
-
-import Todo from './components/todo/Todo'
+import Filter from './components/filter/Filter'
 
 export default {
   components: {
-    Todo
+    Filter
   }
 }
 </script>
