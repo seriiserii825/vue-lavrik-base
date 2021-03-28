@@ -1,15 +1,15 @@
 <template>
   <div class="wrapper">
-    <Filter/>
+    <Animation/>
   </div>
 </template>
 
 <script>
-import Filter from './components/filter/Filter'
+import Animation from './components/Animation'
 
 export default {
   components: {
-    Filter
+    Animation
   }
 }
 </script>
