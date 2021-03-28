@@ -1,15 +1,15 @@
 <template>
   <div class="wrapper">
-    <Radio/>
+    <Filter/>
   </div>
 </template>
 
 <script>
-import Radio from './components/Radio'
+import Filter from './components/filter/Filter'
 
 export default {
   components: {
-    Radio
+    Filter
   }
 }
 </script>
