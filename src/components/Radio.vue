@@ -67,10 +67,9 @@
         <td v-if="showSpam">Yes</td>
         <td v-else>No</td>
       </tr>
-      <tr>
+      <tr v-if="showSpam">
         <td>Spam type</td>
-        <td v-if="showSpam && link.length > 0">{{ link }}</td>
-        <td v-else>empty</td>
+        <td>{{ link }}</td>
       </tr>
     </table>
   </div>
