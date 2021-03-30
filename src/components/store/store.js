@@ -5,6 +5,11 @@ export default createStore({
     cnt: 1,
     price: 1000
   },
+  getters: {
+    total(state) {
+      return state.cnt * state.price
+    }
+  },
   mutations: {
     increase(state) {
       state.cnt++
