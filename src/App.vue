@@ -1,16 +1,16 @@
 <template>
   <div class="wrapper">
-    <Filter/>
+    <Header/>
+    <Product/>
   </div>
 </template>
 
 <script>
-import Filter from './components/filter/Filter'
+import Product from './components/Product'
+import Header from './components/Header'
 
 export default {
-  components: {
-    Filter
-  }
+  components: { Header, Product }
 }
 </script>
 
