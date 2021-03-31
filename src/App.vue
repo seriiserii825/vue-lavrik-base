@@ -8,8 +8,8 @@
           </div>
           <div class="col col-sm-3">
             <div class="alert alert-default">
-              <div>In Cart: 1</div>
-              <!--<div>Total: ...</div>-->
+              <div>In Cart: {{ cartCnt }}</div>
+              <div>Total: ...</div>
             </div>
           </div>
         </div>
@@ -21,8 +21,17 @@
         <div class="row">
           <div class="col col-sm-3 menu">
             <ul class="list-group">
-              <li class="list-group-item" v-for="item in menu" :key="item.route">
-                <router-link :to="{name: item.name}">{{ item.title }}</router-link>
+              <li
+                class="list-group-item"
+                v-for="item in menu"
+                :key="item.route"
+              >
+                <router-link
+                  exact-active-class="active"
+                  :to="{ name: item.name }"
+                >{{ item.title }}
+                </router-link
+                >
               </li>
             </ul>
           </div>
@@ -36,6 +45,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
+
 export default {
   data() {
     return {
@@ -46,6 +57,9 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters("cart", { cartCnt: "length" })
+  }
 }
 </script>
 
@@ -55,15 +69,18 @@ export default {
 }
 
 .list-group-item {
-  transition: background 0.3s, color 0.3s;
+  padding: 0;
 }
 
 .list-group-item a {
   display: block;
+  padding: 1rem 2rem;
   text-decoration: none;
+  transition: all 0.2s ease-out;
 }
 
-.list-group-item.active a {
-  color: inherit;
+.list-group-item a.active {
+  color: white;
+  background-color: dodgerblue;
 }
 </style>
