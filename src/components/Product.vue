@@ -3,7 +3,7 @@
   <div class="price">{{ price }}</div>
   <hr/>
   <button class="btn btn-danger" @click="setCnt(-1)">-1</button>
-  <input type="text" :value="cnt" @input="onInput">
+  <input type="text" :value="cnt" @change="onInput">
   <button class="btn btn-success" @click="setCnt(+1)">+1</button>
   <hr>
   <button type="button" :class="showClasses" @click="sendOrder">{{ showText }}</button>
