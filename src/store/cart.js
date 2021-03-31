@@ -5,7 +5,12 @@ export default {
   },
   getters: {
     length: (state) => state.products.length,
-    total: (state) => "hw"
+    total: (state) => "hw",
+    has(state) {
+      return function (id) {
+        return state.products.some((item) => item.id === id)
+      }
+    }
   },
   mutations: {
     add(state, id) {
@@ -17,10 +22,14 @@ export default {
   },
   actions: {
     add(store, id) {
-      store.commit("add", id)
+      if (!store.getters.has(id)) {
+        store.commit("add", id)
+      }
     },
     remove(store, id) {
-      store.commit("remove", id)
+      if (store.getters.has(id)) {
+        store.commit("remove", id)
+      }
     }
   }
 }

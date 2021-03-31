@@ -12,8 +12,8 @@
             <h3>{{ title }}</h3>
             <div>{{ price }}</div>
             <hr/>
-            <button class="btn btn-danger" @click="removeFromCart(id)">Remove</button>
-            <button class="btn btn-success" @click="addToCart(id)">Add to cart</button>
+            <button v-if="inCart(id)" class="btn btn-danger" @click="removeFromCart(id)">Remove</button>
+            <button v-else class="btn btn-success" @click="addToCart(id)">Add to cart</button>
           </div>
         </div>
       </div>
@@ -26,7 +26,8 @@ import {mapGetters, mapActions} from "vuex"
 
 export default {
   computed: {
-    ...mapGetters("products", { products: "all" })
+    ...mapGetters("products", { products: "all" }),
+    ...mapGetters("cart", { inCart: "has" })
   },
   methods: {
     ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" })
