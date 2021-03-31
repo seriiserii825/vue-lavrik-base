@@ -2,15 +2,15 @@
   <div>Product title</div>
   <div class="price">{{ price }}</div>
   <hr/>
-  <button class="btn btn-danger" @click="decrease">-1</button>
+  <button class="btn btn-danger" @click="setCnt(-1)">-1</button>
   <input type="text" :value="cnt" @input="onInput">
-  <button class="btn btn-success" @click="increase">+1</button>
+  <button class="btn btn-success" @click="setCnt(+1)">+1</button>
   <hr>
   <button type="button" :class="showClasses" @click="sendOrder">{{ showText }}</button>
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions } from 'vuex'
+import {mapMutations, mapGetters, mapActions} from 'vuex'
 
 export default {
   computed: {
@@ -29,8 +29,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['increase', 'decrease', 'setCnt']),
-    ...mapActions(['sendOrder']),
+    ...mapMutations(['increase', 'decrease']),
+    ...mapActions(['sendOrder', 'setCnt']),
     onInput(e) {
       this.setCnt(e.target.value.trim())
     }
@@ -41,5 +41,6 @@ export default {
 <style lang="scss">
 .btn {
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 </style>

@@ -24,13 +24,28 @@ export default createStore({
       }
     },
     setCnt(state, cnt) {
-      state.cnt = +cnt
+      state.cnt = cnt
     },
     setStatus(state, status) {
       state.status = status
     }
   },
   actions: {
+    setCnt(store, payload) {
+      const payloadToNumber = parseInt(payload)
+      if (payload === -1 && store.state.cnt > 1) {
+        store.commit('setCnt', store.state.cnt - 1)
+      } else if (payload === 1) {
+        store.commit('setCnt', store.state.cnt + 1)
+      } else if (
+        payload.length === ('' + payloadToNumber).length ||
+        payload > 1
+      ) {
+        store.commit('setCnt', payloadToNumber)
+      } else {
+        store.commit('setCnt', 1)
+      }
+    },
     sendOrder(store) {
       store.commit('setStatus', 'pending')
       setTimeout(() => {
