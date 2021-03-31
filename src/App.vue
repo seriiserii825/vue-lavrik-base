@@ -21,14 +21,8 @@
         <div class="row">
           <div class="col col-sm-3 menu">
             <ul class="list-group">
-              <li class="list-group-item">
-                <a href="#">Products</a>
-              </li>
-              <li class="list-group-item">
-                <a href="#">Cart</a>
-              </li>
-              <li class="list-group-item">
-                <a href="#">Checkout</a>
+              <li class="list-group-item" v-for="item in menu" :key="item.route">
+                <router-link :to="{name: item.name}">{{ item.title }}</router-link>
               </li>
             </ul>
           </div>
@@ -42,7 +36,17 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      menu: [
+        { name: "products", title: "Products" },
+        { name: "cart", title: "Cart" },
+        { name: "checkout", title: "Checkout" }
+      ]
+    }
+  },
+}
 </script>
 
 <style>

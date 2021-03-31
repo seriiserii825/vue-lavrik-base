@@ -5,14 +5,17 @@ import ProductsList from "../views/ProductsList"
 
 const routes = [
   {
+    name: "cart",
     path: "/cart",
     component: Cart
   },
   {
+    name: "checkout",
     path: "/checkout",
     component: Checkout
   },
   {
+    name: "products",
     path: "/",
     component: ProductsList
   }
