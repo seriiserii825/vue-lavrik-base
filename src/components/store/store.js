@@ -15,36 +15,24 @@ export default createStore({
     }
   },
   mutations: {
-    increase(state) {
-      state.cnt++
-    },
-    decrease(state) {
-      if (state.cnt > 1) {
-        state.cnt--
-      }
-    },
     setCnt(state, cnt) {
-      state.cnt = cnt
+      state.cnt = Math.max(1, cnt)
     },
     setStatus(state, status) {
       state.status = status
     }
   },
   actions: {
+    increase(store) {
+      store.commit('setCnt', store.state.cnt - 1)
+    },
+    decrease(store) {
+      store.commit('setCnt', store.state.cnt + 1)
+    },
     setCnt(store, payload) {
-      const payloadToNumber = parseInt(payload)
-      if (payload === -1 && store.state.cnt > 1) {
-        store.commit('setCnt', store.state.cnt - 1)
-      } else if (payload === 1) {
-        store.commit('setCnt', store.state.cnt + 1)
-      } else if (
-        payload.length === ('' + payloadToNumber).length ||
-        payload > 1
-      ) {
-        store.commit('setCnt', payloadToNumber)
-      } else {
-        store.commit('setCnt', 1)
-      }
+      const cnt = parseInt(payload)
+
+      store.commit('setCnt', isNaN(cnt) ? 1 : cnt)
     },
     sendOrder(store) {
       store.commit('setStatus', 'pending')

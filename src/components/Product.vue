@@ -2,15 +2,17 @@
   <div>Product title</div>
   <div class="price">{{ price }}</div>
   <hr/>
-  <button class="btn btn-danger" @click="setCnt(-1)">-1</button>
-  <input type="text" :value="cnt" @change="onInput">
-  <button class="btn btn-success" @click="setCnt(+1)">+1</button>
-  <hr>
-  <button type="button" :class="showClasses" @click="sendOrder">{{ showText }}</button>
+  <button class="btn btn-danger" @click="increase">-1</button>
+  <input type="text" :value="cnt" @blur="onInput"/>
+  <button class="btn btn-success" @click="decrease">+1</button>
+  <hr/>
+  <button type="button" :class="showClasses" @click="sendOrder">
+    {{ showText }}
+  </button>
 </template>
 
 <script>
-import {mapMutations, mapGetters, mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   computed: {
@@ -29,10 +31,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['increase', 'decrease']),
-    ...mapActions(['sendOrder', 'setCnt']),
+    ...mapActions(['sendOrder', 'increase', 'decrease', 'setCnt']),
     onInput(e) {
-      this.setCnt(e.target.value.trim())
+      const lastCnt = this.cnt
+      this.setCnt(e.target.value)
+
+      if (lastCnt === this.cnt && lastCnt.toString() !== e.target.value) {
+        console.log('nz')
+        this.$forceUpdate()
+      }
     }
   }
 }
