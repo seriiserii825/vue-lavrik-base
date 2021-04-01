@@ -3,6 +3,7 @@ import Cart from "../views/Cart"
 import Checkout from "../views/Checkout"
 import ProductsList from "../views/ProductsList"
 import Product from "../views/Product"
+import E404 from "../views/E404"
 
 const routes = [
   {
@@ -24,7 +25,8 @@ const routes = [
     name: "products",
     path: "/",
     component: ProductsList
-  }
+  },
+  { name: "NotFound", path: "/:catchAll(.*)", component: E404 }
 ]
 
 export default createRouter({

@@ -4,7 +4,15 @@ export default {
     items: tmpGetProducts()
   },
   getters: {
-    all: (state) => state.items
+    all: (state) => state.items,
+    singleProduct(state, getters) {
+      return (id) => {
+        const product = getters.all.find((item) => {
+          return item.id.toString() === id
+        })
+        return product
+      }
+    }
   },
   mutations: {},
   actions: {}
