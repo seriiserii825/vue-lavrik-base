@@ -12,7 +12,7 @@
             <h3>{{ title }}</h3>
             <div>{{ price }}</div>
             <hr />
-            <router-link :to="`/product/${id}`">Read more...</router-link>
+            <router-link class="btn btn-primary" :to="`/product/${id}`">Read more...</router-link>
             <hr />
             <button
               v-if="inCart(id)"
