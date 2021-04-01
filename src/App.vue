@@ -9,11 +9,11 @@
           <div class="col col-sm-3">
             <div class="alert alert-default">
               <div>In Cart: {{ cartCnt }}</div>
-              <div>Total: ...</div>
+              <div>Total: {{ sum }}</div>
             </div>
           </div>
         </div>
-        <hr/>
+        <hr />
       </div>
     </header>
     <section>
@@ -29,9 +29,8 @@
                 <router-link
                   exact-active-class="active"
                   :to="{ name: item.name }"
-                >{{ item.title }}
-                </router-link
-                >
+                  >{{ item.title }}
+                </router-link>
               </li>
             </ul>
           </div>
@@ -45,7 +44,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex"
 
 export default {
   data() {
@@ -58,7 +57,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("cart", { cartCnt: "length" })
+    ...mapGetters("cart", { cartCnt: "length" }),
+    ...mapGetters("cart", { sum: "sum" })
   }
 }
 </script>

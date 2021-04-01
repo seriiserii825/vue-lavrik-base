@@ -11,9 +11,19 @@
           <div class="card-body">
             <h3>{{ title }}</h3>
             <div>{{ price }}</div>
-            <hr/>
-            <button v-if="inCart(id)" class="btn btn-danger" @click="removeFromCart(id)">Remove</button>
-            <button v-else class="btn btn-success" @click="addToCart(id)">Add to cart</button>
+            <hr />
+            <router-link :to="`/product/${id}`">Read more...</router-link>
+            <hr />
+            <button
+              v-if="inCart(id)"
+              class="btn btn-danger"
+              @click="removeHandler(id)"
+            >
+              Remove
+            </button>
+            <button v-else class="btn btn-success" @click="addHandler(id)">
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
@@ -22,7 +32,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from "vuex"
+import { mapGetters, mapActions } from "vuex"
 
 export default {
   computed: {
@@ -30,7 +40,19 @@ export default {
     ...mapGetters("cart", { inCart: "has" })
   },
   methods: {
-    ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" })
+    ...mapActions("cart", {
+      addToCart: "add",
+      removeFromCart: "remove",
+      changeProductsSum: "products"
+    }),
+    addHandler(id) {
+      this.addToCart(id)
+      this.changeProductsSum()
+    },
+    removeHandler(id) {
+      this.removeFromCart(id)
+      this.changeProductsSum()
+    }
   }
 }
 </script>
